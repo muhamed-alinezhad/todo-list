@@ -1,0 +1,225 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>todo-list</title>
+    <link rel="stylesheet" href="css/all.css" type="text/css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body{
+            background-color:#d8e2dc;
+        }
+        #todos-container {
+            width: 400px;
+            min-height: 200px;
+            background-color: #9d8189;
+            margin: 20px auto;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .title-box {
+            text-align: center;
+            height: 50px;
+            background-color: #ffe5d9;
+            line-height: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            font-family: tahoma;
+            position: relative;
+            box-shadow: 0px 0px 5px #888;
+            border-radius: 4px;
+        }
+
+        .title-box i {
+            position: absolute;
+            left: 10px;
+            top: 16px;
+
+
+        }
+
+        .todos {
+            background-color: #f4acb7;
+            color: #fff;
+            min-height: 100px;
+            margin-top: 10px;
+            box-shadow: 0px 0px 5px #888;
+            padding: 30px;
+            border-radius: 4px;
+        }
+
+        .todo {
+            font-family: tahoma;
+            background-color: #ffcad4;
+            position: relative;
+
+            font-size: 13px;
+            text-align: justify;
+            border-bottom: 1px solid #f4acb7;
+            box-shadow: 1px 1px 3px #9d8189;
+            padding: 10px 0px;
+            padding-left: 25px;
+            border-radius: 4px;
+            margin-bottom: 7px;
+        }
+        .todo:hover{
+            box-shadow: 1px 1px 3px #9d8189 inset;
+        }
+
+        .circle {
+            width: 12px;
+            height: 12px;
+
+            border-radius: 50px;
+            border: 1px solid #ffe5d9;
+            display: inline-block;
+            position: absolute;
+            top: 13px;
+            left: 5px;
+        }
+
+        .todo:last-child {
+            border-bottom: none;
+        }
+
+        .todo i {
+            position: absolute;
+            right: 5px;
+            top: 13px;
+            display: none;
+            color: #9d8189;
+        }
+
+        #new-task-btn {
+            background-color: #ffe5d9;
+            width: 130px;
+            height: 30px;
+            border-radius: 30px;
+            text-align: center;
+            line-height: 30px;
+            margin: 0 auto;
+            margin-top: -15px;
+            position: relative;
+            font-family: tahoma;
+            font-weight: bold;
+        }
+
+        #new-task-btn i {
+            font-family: tahoma;
+            position: absolute;
+            left: 30px;
+            top: 9px;
+            font-weight: bolder;
+        
+        }
+
+        .done i {
+            display: block;
+        }
+
+        .done .todo-text {
+            text-decoration: line-through;
+            color: #fff;
+            text-decoration-color: #9d8189;
+        }
+
+        .done .circle {
+            background-color: #9d8189;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="todos-container">
+        <div class="title-box"> <i class="fas fa-bars"></i> Todos</div>
+        <div class="todos">
+            <div class="todo done">
+                <span class="circle"></span>
+                <span class="todo-text"> buying-fruites </span>
+                <i class="fas fa-trash"></i>
+            </div>
+            <div class="todo ">
+                <span class="circle"></span>
+                <span class="todo-text"> buying-fruites </span>
+                <i class="fas fa-trash"></i>
+            </div>
+        </div>
+        <div id="new-task-btn" onclick="plus()">
+            <i class="fas fa-plus"></i> plus
+        </div>
+    </div>
+    <script>
+        // let a = "helllooo";
+        // console.log(a) ;
+        function plus() {
+
+            //user-todo-text
+            let user_todo_text = window.prompt("wich work ... ?");
+
+            //todo
+            let todo = document.createElement("div");
+            todo.setAttribute("class", "todo");
+
+            //circle
+            let span = document.createElement("span");
+            span.classList.add("circle");
+
+            //todo-text
+            let todo_text = document.createElement("span");
+            todo_text.classList.add("todo-text");
+            todo_text.textContent = user_todo_text;
+
+            //fas fa-trash
+            let i = document.createElement("i");
+            i.classList.add("fas", "fa-trash");
+
+            todo.append(span, todo_text, i);
+            if (user_todo_text!="") {
+                document.querySelector('.todos').append(todo);
+                console.log(todo);
+            }
+
+
+        }
+        // document.querySelectorAll('.circle').forEach(function(item){
+        //     item.addEventListener('click' , (e)=>{
+        //         console.log("helllo") ;
+        //     })
+        // })
+
+        document.addEventListener('click', function (e) {
+
+            // console.log(e.target) ;
+            // console.log(e.target.getAttribute('class')) ;
+            if (e.target && e.target.getAttribute('class') == "circle") {
+                // console.log("you click on circle")
+                let parent = e.target.parentElement;
+                parent.classList.toggle('done');
+
+            }
+            if (e.target && e.target.getAttribute('class') == "fas fa-trash") {
+                //    console.log("here") ;
+                //    console.log(e.target.parentElement)
+                let confirm = window.confirm("Are you sure about it ?");
+                console.log(confirm);
+                if (confirm == true) {
+                    e.target.parentElement.remove();
+                } else {
+                    e.preventDefault();
+                }
+            }
+        })
+    </script>
+
+</body>
+
+
+</html>
